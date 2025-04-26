@@ -1,13 +1,22 @@
-import React from 'react'
+import React from "react";
 
-function Article({title, date, preview}) {
+function Article({ title, date = "January 1, 1970", preview, minutes }) {
+  const getMinutesRead = (minutes) => {
+    const emoji = minutes < 30 ? "☕️" : "🍱";
+    const repeatCount =
+      minutes < 30 ? Math.ceil(minutes / 5) : Math.ceil(minutes / 10);
+    return emoji.repeat(repeatCount) + ` ${minutes} min read`;
+  };
+
   return (
-    <article>
-        <h3>{title}</h3>
-        <small>{date || "January 1, 1970"}</small>
-        <p>{preview}</p>
+    <article style={{ marginBottom: "2rem" }}>
+      <h3 style={{ color: "#FF69B4", fontWeight: "bold" }}>{title}</h3>
+      <small style={{ display: "block", marginBottom: "0.5rem" }}>
+        {date} • {getMinutesRead(minutes)}
+      </small>
+      <p>{preview}</p>
     </article>
-  )
+  );
 }
 
-export default Article
+export default Article;
